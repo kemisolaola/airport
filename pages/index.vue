@@ -1,115 +1,40 @@
 <template>
-  <v-row justify="center" align="center" class="main-containers px-5">
-    <v-col cols="12">
-      <v-card rounded="lg" height="300" class="py-16">
-        <v-row no-gutters class="px-4">
-          <v-col cols="12" sm="6" md="3">
-            <v-menu offset-y
-             origin="center center"
-                      transition="scale-transition">
-              <template v-slot:activator="{ on, attrs }">
-                <v-card outlined height="150" class="pa-3" v-bind="attrs" v-on="on">
-                  <p class="mb-1">FROM</p>
-                  <h2>{{selectedFrom.city}}</h2>
-                  <p class="mb-0">{{selectedFrom.name}}</p>
-                </v-card>
-              </template>
-              <v-list width="400"
-               height="400"
-       class="overflow-y-auto">
-                <v-list-item-content>
-                  <v-list-item link color="white" v-for="(item, index) in airports" :key="index">
-                    <v-row justify="space-between" @click="selectedFrom = item">
-                      <v-col class="">
-                        <p class="mb-1 city-list">{{item.city}}, {{item.country}}</p>
-                        <p class="mb-4 city-list">{{item.name}}</p>
-                      </v-col>
-                      <v-col class="text-right"><small>{{item.IATA}}</small></v-col>
-                    </v-row>
-                  </v-list-item>
-                </v-list-item-content>
-              </v-list>
-            </v-menu>
-          </v-col>
-          <v-col cols="12" sm="6" md="3">
-            <v-menu offset-y
-             origin="center center"
-                      transition="scale-transition">
-              <template v-slot:activator="{ on, attrs }">
-                <v-card outlined height="150" class="pa-3" v-bind="attrs" v-on="on">
-                  <p class="mb-1">TO</p>
-                  <h2>{{selectedDestination.city}}</h2>
-                  <p class="mb-0">{{selectedDestination.name}}</p>
-                </v-card>
-              </template>
-              <v-list width="400"
-               height="400"
-       class="overflow-y-auto">
-                <v-list-item-content>
-                  <v-list-item link color="white" v-for="(item, index) in airports" :key="index">
-                    <v-row justify="space-between" @click="selectedDestination = item">
-                      <v-col class="">
-                        <p class="mb-1 city-list">{{item.city}}, {{item.country}}</p>
-                        <p class="mb-4 city-list">{{item.name}}</p>
-                      </v-col>
-                      <v-col class="text-right"><small>{{item.IATA}}</small></v-col>
-                    </v-row>
-                  </v-list-item>
-                </v-list-item-content>
-              </v-list>
-            </v-menu>
-          </v-col>
-          <v-col cols="12" sm="6" md="3">
-            <v-menu
-        ref="menu"
-        v-model="menu"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        transition="scale-transition"
-        offset-y
-        min-width="auto"
-      ><template v-slot:activator="{ on, attrs }">
-            <v-card outlined height="150"  class="pa-3" v-bind="attrs" v-on="on">
-              <p class="mb-1">DEPARTURE<v-icon color="primary">mdi-chevron-down</v-icon></p>
-              <p class="text-h5 font-weight-bold" >{{date | formattedDay}}<span  class="text-h6 font-weight-regular"> {{month[date | formattedMonth]}}' {{ date | formattedYear}}</span></p>
-                  <p>{{days[(new Date(date)).getDay()]}}</p>
-                </v-card>
-                  </template>
-                  <v-date-picker
-          v-model="date"
-          @input="menu  = false"
-          no-title
-          scrollable
-        >
-        </v-date-picker>
-      </v-menu>
-          </v-col>
-          <v-col cols="12" sm="6" md="3">
-            <v-menu
-        ref="menu"
-        v-model="menu2"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        transition="scale-transition"
-        offset-y
-        min-width="auto"
-      ><template v-slot:activator="{ on, attrs }">
-            <v-card outlined height="150"  class="pa-3" v-bind="attrs" v-on="on">
-              <p class="mb-1">RETURN<v-icon color="primary">mdi-chevron-down</v-icon></p>
-              <p class="text-h5 font-weight-bold" >{{date2 | formattedDay}}<span  class="text-h6 font-weight-regular"> {{month[date2 | formattedMonth]}}' {{ date2 | formattedYear}}</span></p>
-                  <span>{{days[(new Date(date2)).getDay()]}}</span>
-                </v-card>
-                  </template>
-                  <v-date-picker
-          v-model="date2"
-          @input="menu2  = false"
-          no-title
-          scrollable
-        >
-        </v-date-picker>
-      </v-menu>
-          </v-col>
-        </v-row>
+  <v-row justify="center" align="center" class="login-bg">
+    <v-col cols="12" sm="10" md="5">
+      <v-card dark class="mx-5 pt-1 px-4 login-card">
+        <p class="mt-5 mb-1">Can’t wait to fly private jets?</p>
+        <span>Share your details below to be notified at launch.
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-row class="mt-2">
+              <v-col cols="6" class="py-0">
+                <v-text-field v-model="name" :rules="nameRules" color="primary" outlined dense  placeholder="Full name">
+
+                </v-text-field>
+              </v-col>
+              <v-col cols="6" class="py-0">
+                <v-text-field v-model="phoneNumber" :rules="phoneNumberRules" color="primary" outlined dense
+                  placeholder="Phone number">
+
+                </v-text-field>
+              </v-col>
+              <v-col cols="12" class="py-0">
+                <v-text-field v-model="email" :rules="emailRules" color="primary" outlined dense
+                  placeholder="Email id">
+
+                </v-text-field>
+              </v-col>
+              <v-col cols="12" class="py-0">
+                <v-textarea v-model="message" :rules="messageRules" color="primary" height="70" outlined dense
+                   placeholder="Your message">
+
+                </v-textarea>
+              </v-col>
+              <v-col cols="12">
+                <v-btn @click="validate" block color="primary" height="45" elevation="0" :loading="loading">Submit</v-btn>
+              </v-col>
+            </v-row>
+          </v-form>
+        </span>
       </v-card>
     </v-col>
   </v-row>
@@ -117,46 +42,45 @@
 
 <script>
 export default {
-  name: 'IndexPage',
   data () {
     return {
-      airports: [],
-      selectedFrom: [],
-      selectedDestination: [],
-      date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-      date2: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-      days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      month: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-      menu: false,
-      menu2: false
+      valid: true,
+      name: '',
+      nameRules: [
+        v => !!v || 'Full name is required',
+        v => (v && v.length >= 7) || 'Name cannot be less than 7 characters'
+      ],
+      email: '',
+      emailRules: [
+        v => !!v || 'Email is required',
+        v => /.+@.+\..+/.test(v) || 'Email musr be valid'
+      ],
+      message: '',
+      messageRules: [
+        v => !!v || 'Message is required'
+      ],
+      phoneNumber: '',
+      phoneNumberRules: [
+        v => !!v || 'Phone number is required',
+        v => Number.isInteger(Number(v)) || 'Phone number must be valid'
+      ],
+      loading: false
     }
   },
-  filters: {
-    formattedDay (val) {
-      return (new Date(val)).getDate()
-    },
-    formattedMonth (val) {
-      return [(new Date(val)).getMonth()]
-    },
-    formattedYear (val) {
-      return (new Date(val)).getFullYear().toString().slice(-2)
+  methods: {
+    validate () {
+      this.$refs.form.validate()
+      if (this.$refs.form.validate()) {
+        this.loading = true
+        setTimeout(() => {
+          this.$router.push('/airport')
+        }, 2000)
+      }
     }
-  },
-  async mounted () {
-    const res = await this.$axios.get('http://localhost:3000/countries')
-    this.airports = res.data
-    console.log(this.airports)
-    this.selectedFrom = this.airports[0]
-    this.selectedDestination = this.airports[5]
   }
 }
 </script>
-<style scoped>
-.main-containers {
-  background-image: linear-gradient(to bottom, #051322, #15457c);
-}
 
-.city-list {
-  font-size: 14px;
-}
+<style>
+
 </style>

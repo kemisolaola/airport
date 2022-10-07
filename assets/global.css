@@ -1,0 +1,78 @@
+html {
+    font-size: 14px;
+}
+/* Airport Font */
+@font-face {
+    font-family: 'Mukta-Bold';
+    src: url('./MuktaFont/Mukta-Bold.ttf');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Mukta-Extra-Bold';
+    src: url('./MuktaFont/Mukta-ExtraBold.ttf');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Mukta-Regular';
+    src: url('./MuktaFont/Mukta-Regular.ttf');
+    font-weight: normal;
+}
+
+/* Login classes */
+.login-bg {
+    background: url('https://ik.imagekit.io/egrcxziyv/Jet_Hero.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.login-card {
+    background: rgba(0, 0, 0, .52157) !important
+}
+
+.login-card p {
+    font-size: 2rem;
+}
+
+span {
+    font-size: .9rem;
+}
+
+.city-title {
+    font-size: 14px;
+}
+/* End of Login classes */
+
+/* Airport class */
+.main-containers {
+    font-family: 'Mukta-Regular', sans-serif;
+    background-image: linear-gradient(to bottom, #051322, #15457c);
+  }
+.card-subtitle {
+    font-family: 'Mukta-Bold', sans-serif;
+    color: #4a4a4a;
+    font-size: 14px;
+}
+.card-h2 {
+    font-family: 'Mukta-Extra-Bold', sans-serif;
+    font-size: 30px;
+}
+.card-airport-name {
+    font-family: 'Mukta-Regular', sans-serif;
+    color: #4a4a4a;
+    font-size: 14px;
+
+}
+.airport-menu-list {
+    font-family: 'Mukta-Regular', sans-serif;
+    font-size: 12px;
+    color: #9b9b9b
+  }
+  .city-menu-list {
+    font-family: 'Mukta-Regular', sans-serif;
+    font-size: 14px;
+  }
+  .abr-menu-list {
+    font-family: 'Mukta-Regular', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #9b9b9b;
+  }
